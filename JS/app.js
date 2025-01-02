@@ -47,16 +47,19 @@ function createplateau() {
         square.textContent = i;
         plateau.appendChild(square);
         cases.push(square);
+
         if (i === 1) {
             square.classList.add('start');
-            square.textContent += ' (Départ)';
-        }
-        if (i === 100) {
+            square.textContent = 'Depart';
+        } else if (i === 100) {
             square.classList.add('end');
-            square.textContent += ' (Arrivée)';
+            square.textContent = 'Arrivé';
+        }
+        else {
+            square.textContent = i;
         }
     }
-    
+
 
     serpents.forEach(snake => {
         const snakeElement = document.createElement('div');
@@ -115,7 +118,7 @@ function movePlayer(diceValue) {
 
 function rollDice() {
     let diceValue = Math.floor(Math.random() * 6) + 1;
-    
+
     // Applique l'animation et met à jour le texte
     diceResult.classList.add('dice-animation');
     diceResult.textContent = `Vous avez fait un ${diceValue} !`;
