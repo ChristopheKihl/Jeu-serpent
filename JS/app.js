@@ -132,19 +132,13 @@ function rollDice() {
 
     movePlayer(diceValue);
 }
+
 nouvellePartieBtn.addEventListener('click', () => {
     generateRandomPositions();
     createplateau();
     playerPosition = 1;
     state = 0;
-    // if (playerElement) {
-    //     playerElement.remove();
-    // }
     movePlayer(playerPosition, state);
 });
 
 diceButton.addEventListener('click', rollDice);
-
-// generateRandomPositions();
-// createplateau();
-// movePlayer(playerPosition);
