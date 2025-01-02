@@ -89,9 +89,9 @@ function createplateau() {
     });
 }
 
+function movePlayer(diceValue) {
+    let playerPosition = players[currentPlayerIndex];
 
-function movePlayer(diceValue, state) {
-    let oldPosition = playerPosition;
 
     if (playerPosition + diceValue > 100) {
         return; // Le joueur ne peut pas dépasser la case 100
@@ -99,38 +99,23 @@ function movePlayer(diceValue, state) {
 
     playerPosition += diceValue;
 
-    console.log('ancienne valeur', oldPosition);
-    console.log('nouvelle valeur', playerPosition);
+    // Vérifier si le joueur a atterri sur un serpent ou une échelle
+    serpents.forEach(snake => {
+        if (snake.start === playerPosition) {
+            playerPosition = snake.end;
+        }
+    });
 
-    setTimeout(() => {
-        playerElement.remove();
-        cases[playerPosition - 1].appendChild(playerElement);
-
-    }, 500)
-    oldPosition += 1;
-    console.log(oldPosition);
-
-
-
-
-    // // Vérifier si le joueur a atterri sur un serpent ou une échelle
-    // serpents.forEach(snake => {
-    //     if (snake.start === playerPosition) {
-    //         playerPosition = snake.end;
-    //     }
-    // });
-
-    // echelles.forEach(ladder => {
-    //     if (ladder.start === playerPosition) {
-    //         playerPosition = ladder.end;
-    //     }
-    // });
+    echelles.forEach(ladder => {
+        if (ladder.start === playerPosition) {
+            playerPosition = ladder.end;
+        }
+    });
 
     // Mettre à jour la position du joueur sur le plateau
-    // if (playerElement) {
-    //     playerElement.remove(); // Supprimer le pion de sa position actuelle
-    //     cases[playerPosition - 1].appendChild(playerElement); // Placer le pion à la nouvelle position
-    // }
+    // players[currentPlayerIndex] = playerPosition;
+    // playerElements[currentPlayerIndex].remove(); // Supprimer le pion de sa position actuelle
+    // cases[playerPosition - 1].appendChild(playerElements[currentPlayerIndex]); // Placer le pion à la nouvelle position
 
     // Vérifier si le joueur a gagné
     if (playerPosition === 100) {
@@ -168,9 +153,6 @@ nouvellePartieBtn.addEventListener('click', () => {
     currentPlayerIndex = 0; // Le premier joueur commence
     generateRandomPositions();
     createplateau();
-    playerPosition = 1;
-    state = 0;
-    movePlayer(playerPosition, state);
 });
 
 diceButton.addEventListener('click', rollDice);
