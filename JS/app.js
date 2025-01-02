@@ -5,6 +5,8 @@ let playerPosition = 1;
 let serpents = [];
 let echelles = [];
 
+// nouvellePartieBtn.addEventListener('click', generateRandomPositions);
+
 function generateRandomPositions() {
     serpents = [];
     echelles = [];
@@ -60,16 +62,17 @@ function createplateau() {
     });
 }
 
-function movePlayer(targetPosition) {
-}
+
+
+// function movePlayer(targetPosition) {
+// }
 
 nouvellePartieBtn.addEventListener('click', () => {
     generateRandomPositions();
     createplateau();
     playerPosition = 1;
-    movePlayer(playerPosition);
+    //     movePlayer(playerPosition);
 });
 
-generateRandomPositions();
-createplateau();
-movePlayer(playerPosition);
+// generateRandomPositions();
+// movePlayer(playerPosition);
