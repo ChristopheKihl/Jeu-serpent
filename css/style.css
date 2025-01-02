@@ -22,6 +22,7 @@ body {
     margin: 20px auto;
     border: 5px solid #388E3C;
     border-radius: 10px;
+    justify-content: center;
 }
 .square {
     width: 60px;
