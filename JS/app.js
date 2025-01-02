@@ -8,8 +8,6 @@ let serpents = [];
 let echelles = [];
 let playerElement = null; // Élément du joueur
 
-// nouvellePartieBtn.addEventListener('click', generateRandomPositions);
-
 function generateRandomPositions() {
     serpents = [];
     echelles = [];
@@ -43,7 +41,7 @@ function createplateau() {
     plateau.innerHTML = '';
     cases = [];
 
-    for (let i = 100; i >= 1; i--) {
+    for (let i = 1; i <= 100; i++) {
         const square = document.createElement('div');
         square.classList.add('square');
         square.textContent = i;
@@ -72,6 +70,7 @@ function createplateau() {
 }
 
 function movePlayer(diceValue) {
+
     if (playerPosition + diceValue > 100) {
         return; // Le joueur ne peut pas dépasser la case 100
     }
@@ -114,9 +113,9 @@ nouvellePartieBtn.addEventListener('click', () => {
     generateRandomPositions();
     createplateau();
     playerPosition = 1;
-    if (playerElement) {
-        playerElement.remove();
-    }
+    // if (playerElement) {
+    //     playerElement.remove();
+    // }
     movePlayer(playerPosition);
 });
 
