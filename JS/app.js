@@ -41,9 +41,6 @@ function createplateau() {
         const square = document.createElement('div');
         square.classList.add('square');
         square.textContent = i;
-        square.addEventListener('click', () => {
-            movePlayer(i);
-        });
         plateau.appendChild(square);
         cases.push(square);
     }
