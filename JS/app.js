@@ -8,6 +8,8 @@ let serpents = [];
 let echelles = [];
 let playerElement = null; // Élément du joueur
 
+// nouvellePartieBtn.addEventListener('click', generateRandomPositions);
+
 function generateRandomPositions() {
     serpents = [];
     echelles = [];
