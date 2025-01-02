@@ -3,10 +3,11 @@ const nouvellePartieBtn = document.getElementById('nouvellePartieBtn');
 const diceButton = document.getElementById('diceButton');
 const diceResult = document.getElementById('diceResult');
 let cases = [];
-let playerPosition = 1;
+let players = []; // Tableau pour les positions des joueurs
+let currentPlayerIndex = 0; // Indice du joueur actuel
 let serpents = [];
 let echelles = [];
-let playerElement = null; // Élément du joueur
+let playerElements = []; // Tableau pour les éléments des joueurs
 
 function generateRandomPositions() {
     serpents = [];
@@ -60,7 +61,6 @@ function createplateau() {
         }
     }
 
-
     serpents.forEach(snake => {
         const snakeElement = document.createElement('div');
         snakeElement.classList.add('snake');
@@ -75,22 +75,28 @@ function createplateau() {
         cases[ladder.start - 1].appendChild(ladderElement);
     });
 
-    // Créer le pion du joueur
-    playerElement = document.createElement('div');
-    playerElement.classList.add('player');
-    cases[0].appendChild(playerElement);
+    // Créer les pions des joueurs
+    playerElements = [];
+    players.forEach((_, index) => {
+        const playerElement = document.createElement('div');
+        playerElement.classList.add('player');
+        
+        // Ajouter une couleur spécifique en fonction du joueur
+        playerElement.classList.add(`player-${index + 1}`); // player-1, player-2, etc.
+        
+        cases[0].appendChild(playerElement);
+        playerElements.push(playerElement);
+    });
 }
 
-
-function movePlayer(diceValue, state) {
+function movePlayer(diceValue) {
+    let playerPosition = players[currentPlayerIndex];
 
     if (playerPosition + diceValue > 100) {
         return; // Le joueur ne peut pas dépasser la case 100
     }
 
-    if (state != 0) {
-        playerPosition += diceValue;
-    }
+    playerPosition += diceValue;
 
     // Vérifier si le joueur a atterri sur un serpent ou une échelle
     serpents.forEach(snake => {
@@ -106,14 +112,13 @@ function movePlayer(diceValue, state) {
     });
 
     // Mettre à jour la position du joueur sur le plateau
-    if (playerElement) {
-        playerElement.remove(); // Supprimer le pion de sa position actuelle
-        cases[playerPosition - 1].appendChild(playerElement); // Placer le pion à la nouvelle position
-    }
+    players[currentPlayerIndex] = playerPosition;
+    playerElements[currentPlayerIndex].remove(); // Supprimer le pion de sa position actuelle
+    cases[playerPosition - 1].appendChild(playerElements[currentPlayerIndex]); // Placer le pion à la nouvelle position
 
     // Vérifier si le joueur a gagné
     if (playerPosition === 100) {
-        alert("Vous avez gagné !");
+        alert(`Le joueur ${currentPlayerIndex + 1} a gagné !`);
         return;
     }
 }
@@ -123,7 +128,7 @@ function rollDice() {
 
     // Applique l'animation et met à jour le texte
     diceResult.classList.add('dice-animation');
-    diceResult.textContent = `Vous avez fait un ${diceValue} !`;
+    diceResult.textContent = `Le joueur ${currentPlayerIndex + 1} a fait un ${diceValue} !`;
 
     // Enlève l'animation après 500 ms pour permettre de relancer correctement
     setTimeout(() => {
@@ -131,20 +136,22 @@ function rollDice() {
     }, 500);
 
     movePlayer(diceValue);
+
+    // Passer au joueur suivant
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
 }
+
 nouvellePartieBtn.addEventListener('click', () => {
+    let numberOfPlayers = parseInt(prompt("Entrez le nombre de joueurs (1 à 4):"));
+    if (numberOfPlayers < 1 || numberOfPlayers > 4) {
+        alert("Veuillez entrer un nombre de joueurs valide.");
+        return;
+    }
+
+    players = Array(numberOfPlayers).fill(1); // Chaque joueur commence à la case 1
+    currentPlayerIndex = 0; // Le premier joueur commence
     generateRandomPositions();
     createplateau();
-    playerPosition = 1;
-    state = 0;
-    // if (playerElement) {
-    //     playerElement.remove();
-    // }
-    movePlayer(playerPosition, state);
 });
 
 diceButton.addEventListener('click', rollDice);
-
-// generateRandomPositions();
-// createplateau();
-// movePlayer(playerPosition);
