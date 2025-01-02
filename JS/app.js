@@ -82,13 +82,16 @@ function createplateau() {
 }
 
 
-function movePlayer(diceValue) {
+function movePlayer(diceValue, state) {
 
     if (playerPosition + diceValue > 100) {
         return; // Le joueur ne peut pas dépasser la case 100
     }
 
-    playerPosition += diceValue;
+    if (state != 0) {
+        playerPosition += diceValue;
+
+    }
 
     // Vérifier si le joueur a atterri sur un serpent ou une échelle
     serpents.forEach(snake => {
@@ -134,14 +137,15 @@ nouvellePartieBtn.addEventListener('click', () => {
     generateRandomPositions();
     createplateau();
     playerPosition = 1;
+    state = 0;
     // if (playerElement) {
     //     playerElement.remove();
     // }
-    movePlayer(playerPosition);
+    movePlayer(playerPosition, state);
 });
 
 diceButton.addEventListener('click', rollDice);
 
-generateRandomPositions();
-createplateau();
-movePlayer(playerPosition);
+// generateRandomPositions();
+// createplateau();
+// movePlayer(playerPosition);
