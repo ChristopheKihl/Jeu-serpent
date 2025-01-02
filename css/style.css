@@ -16,7 +16,7 @@ body {
 }
 .plateau {
     display: grid;
-    grid-template-columns: repeat(10, 60px);
+    grid-template-columns: repeat(10, 100px);
     grid-template-rows: repeat(10, 60px);
     gap: 3px;
     margin: 20px auto;
@@ -25,7 +25,7 @@ body {
     justify-content: center;
 }
 .square {
-    width: 60px;
+    width: 80px;
     height: 60px;
     display: flex;
     justify-content: center;
@@ -47,6 +47,7 @@ body {
     position: absolute;
     border: 2px solid #fff;
 }
+
 .snake, .ladder {
     position: absolute;
     font-size: 1.8rem;
@@ -75,4 +76,12 @@ button:hover {
 .start, .end {
     background-color: #FFD700;
     color: #000;
+}
+.dice-animation {
+    animation: roll 0.5s ease;
+}
+@keyframes roll {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
 }

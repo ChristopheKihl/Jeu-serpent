@@ -47,7 +47,16 @@ function createplateau() {
         square.textContent = i;
         plateau.appendChild(square);
         cases.push(square);
+        if (i === 1) {
+            square.classList.add('start');
+            square.textContent += ' (Départ)';
+        }
+        if (i === 100) {
+            square.classList.add('end');
+            square.textContent += ' (Arrivée)';
+        }
     }
+    
 
     serpents.forEach(snake => {
         const snakeElement = document.createElement('div');
@@ -68,6 +77,7 @@ function createplateau() {
     playerElement.classList.add('player');
     cases[0].appendChild(playerElement);
 }
+
 
 function movePlayer(diceValue) {
 
@@ -105,10 +115,18 @@ function movePlayer(diceValue) {
 
 function rollDice() {
     let diceValue = Math.floor(Math.random() * 6) + 1;
+    
+    // Applique l'animation et met à jour le texte
+    diceResult.classList.add('dice-animation');
     diceResult.textContent = `Vous avez fait un ${diceValue} !`;
+
+    // Enlève l'animation après 500 ms pour permettre de relancer correctement
+    setTimeout(() => {
+        diceResult.classList.remove('dice-animation');
+    }, 500);
+
     movePlayer(diceValue);
 }
-
 nouvellePartieBtn.addEventListener('click', () => {
     generateRandomPositions();
     createplateau();
