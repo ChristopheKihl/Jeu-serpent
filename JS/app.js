@@ -90,7 +90,6 @@ function movePlayer(diceValue, state) {
 
     if (state != 0) {
         playerPosition += diceValue;
-
     }
 
     // Vérifier si le joueur a atterri sur un serpent ou une échelle
