@@ -3,6 +3,7 @@ const nouvellePartieBtn = document.getElementById('nouvellePartieBtn');
 const diceButton = document.getElementById('diceButton');
 const diceResult = document.getElementById('diceResult');
 let cases = [];
+let state;
 let playerPosition = 1;
 let serpents = [];
 let echelles = [];
@@ -88,22 +89,27 @@ function movePlayer(diceValue, state) {
         return; // Le joueur ne peut pas dépasser la case 100
     }
 
+    console.log(playerPosition);
+
+
     if (state != 0) {
         playerPosition += diceValue;
     }
 
-    // Vérifier si le joueur a atterri sur un serpent ou une échelle
-    serpents.forEach(snake => {
-        if (snake.start === playerPosition) {
-            playerPosition = snake.end;
-        }
-    });
 
-    echelles.forEach(ladder => {
-        if (ladder.start === playerPosition) {
-            playerPosition = ladder.end;
-        }
-    });
+
+    // // Vérifier si le joueur a atterri sur un serpent ou une échelle
+    // serpents.forEach(snake => {
+    //     if (snake.start === playerPosition) {
+    //         playerPosition = snake.end;
+    //     }
+    // });
+
+    // echelles.forEach(ladder => {
+    //     if (ladder.start === playerPosition) {
+    //         playerPosition = ladder.end;
+    //     }
+    // });
 
     // Mettre à jour la position du joueur sur le plateau
     if (playerElement) {
