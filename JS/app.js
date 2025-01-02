@@ -5,7 +5,7 @@ let playerPosition = 1;
 let serpents = [];
 let echelles = [];
 
-nouvellePartieBtn.addEventListener('click', generateRandomPositions);
+// nouvellePartieBtn.addEventListener('click', generateRandomPositions);
 
 function generateRandomPositions() {
     serpents = [];
@@ -33,49 +33,49 @@ function generateRandomPositions() {
         }
 
         echelles.push({ start: start, end: end });
-        console.log(serpents);
     }
 }
 
-// function createplateau() {
-//     plateau.innerHTML = '';
+function createplateau() {
+    plateau.innerHTML = '';
 
-//     for (let i = 100; i >= 1; i--) {
-//         const square = document.createElement('div');
-//         square.classList.add('square');
-//         square.textContent = i;
-//         square.addEventListener('click', () => {
-//             movePlayer(i);
-//         });
-//         plateau.appendChild(square);
-//         cases.push(square);
-//     }
+    for (let i = 100; i >= 1; i--) {
+        const square = document.createElement('div');
+        square.classList.add('square');
+        square.textContent = i;
+        square.addEventListener('click', () => {
+            movePlayer(i);
+        });
+        plateau.appendChild(square);
+        cases.push(square);
+    }
 
-//     serpents.forEach(snake => {
-//         const snakeElement = document.createElement('div');
-//         snakeElement.classList.add('snake');
-//         snakeElement.textContent = '🐍';
-//         cases[snake.start - 1].appendChild(snakeElement);
-//     });
+    serpents.forEach(snake => {
+        const snakeElement = document.createElement('div');
+        snakeElement.classList.add('snake');
+        snakeElement.textContent = '🐍';
+        cases[snake.start - 1].appendChild(snakeElement);
+    });
 
-//     echelles.forEach(ladder => {
-//         const ladderElement = document.createElement('div');
-//         ladderElement.classList.add('ladder');
-//         ladderElement.textContent = '🪜';
-//         cases[ladder.start - 1].appendChild(ladderElement);
-//     });
-// }
+    echelles.forEach(ladder => {
+        const ladderElement = document.createElement('div');
+        ladderElement.classList.add('ladder');
+        ladderElement.textContent = '🪜';
+        cases[ladder.start - 1].appendChild(ladderElement);
+    });
+}
+
+
 
 // function movePlayer(targetPosition) {
 // }
 
-// nouvellePartieBtn.addEventListener('click', () => {
-//     generateRandomPositions();
-//     createplateau();
-//     playerPosition = 1;
-//     movePlayer(playerPosition);
-// });
+nouvellePartieBtn.addEventListener('click', () => {
+    generateRandomPositions();
+    createplateau();
+    playerPosition = 1;
+    //     movePlayer(playerPosition);
+});
 
 // generateRandomPositions();
-// createplateau();
 // movePlayer(playerPosition);
