@@ -1,0 +1,77 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #4CAF50;
+}
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.plateau {
+    display: grid;
+    grid-template-columns: repeat(10, 60px);
+    grid-template-rows: repeat(10, 60px);
+    gap: 3px;
+    margin: 20px auto;
+    border: 5px solid #388E3C;
+    border-radius: 10px;
+}
+.square {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    background-color: #f1f8e9;
+    position: relative;
+    font-weight: bold;
+}
+.square:nth-child(odd) {
+    background-color: #c8e6c9;
+}
+.player {
+    width: 40px;
+    height: 40px;
+    background-color: #FF5722;
+    border-radius: 50%;
+    position: absolute;
+    border: 2px solid #fff;
+}
+.snake, .ladder {
+    position: absolute;
+    font-size: 1.8rem;
+}
+.controls {
+    margin-top: 20px;
+}
+button {
+    margin: 10px;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+}
+#nouvellePartieBtn {
+    background-color: #007BFF;
+}
+#diceButton {
+    background-color: #FF9800;
+}
+button:hover {
+    opacity: 0.9;
+}
+.start, .end {
+    background-color: #FFD700;
+    color: #000;
+}
