@@ -52,21 +52,11 @@ body {
     border: 2px solid #fff;
 }
 
-.player-1 {
-    background-color: #ff2222; 
-}
+.player-1 { background-color: red; }
+.player-2 { background-color: blue; }
+.player-3 { background-color: green; }
+.player-4 { background-color: yellow; }
 
-.player-2 {
-    background-color: #4CAF50; 
-}
-
-.player-3 {
-    background-color: #2196F3; 
-}
-
-.player-4 {
-    background-color: #d1c132; 
-}
 
 .snake,
 .ladder {

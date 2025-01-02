@@ -13,28 +13,22 @@ function generateRandomPositions() {
     serpents = [];
     echelles = [];
 
-    for (let i = 0; i < 5; i++) {
-        let start = Math.floor(Math.random() * 95) + 1;
-        let end = Math.floor(Math.random() * 95) + 1;
+    while (serpents.length < 5) {
+        let start = Math.floor(Math.random() * 95) + 6;  // Assurez-vous que le serpent commence plus haut
+        let end = Math.floor(Math.random() * (start - 1)) + 1; // Descend à une case en dessous
 
-        while (start === end || end >= start) {
-            start = Math.floor(Math.random() * 95) + 1;
-            end = Math.floor(Math.random() * 95) + 1;
+        if (!serpents.some(s => s.start === start)) {
+            serpents.push({ start, end });
         }
-
-        serpents.push({ start: start, end: end });
     }
 
-    for (let i = 0; i < 5; i++) {
-        let start = Math.floor(Math.random() * 95) + 1;
-        let end = Math.floor(Math.random() * 95) + 1;
+    while (echelles.length < 5) {
+        let start = Math.floor(Math.random() * 94) + 1;  // Commence plus bas
+        let end = Math.floor(Math.random() * (100 - start)) + start + 1; // Monte à une case au-dessus
 
-        while (start === end || end <= start) {
-            start = Math.floor(Math.random() * 95) + 1;
-            end = Math.floor(Math.random() * 95) + 1;
+        if (!echelles.some(e => e.start === start)) {
+            echelles.push({ start, end });
         }
-
-        echelles.push({ start: start, end: end });
     }
 }
 
@@ -76,7 +70,7 @@ function createplateau() {
     });
 
     // Créer les pions des joueurs
-    playerElements = [];
+      playerElements = [];
     players.forEach((_, index) => {
         const playerElement = document.createElement('div');
         playerElement.classList.add('player');
@@ -91,54 +85,67 @@ function createplateau() {
 
 function movePlayer(diceValue) {
     let playerPosition = players[currentPlayerIndex];
+    let newPosition = playerPosition + diceValue;
 
-    if (playerPosition + diceValue > 100) {
+    if (newPosition > 100) {
         return; // Le joueur ne peut pas dépasser la case 100
     }
 
-    playerPosition += diceValue;
-
-    // Vérifier si le joueur a atterri sur un serpent ou une échelle
-    serpents.forEach(snake => {
-        if (snake.start === playerPosition) {
-            playerPosition = snake.end;
+    // Ajouter une classe pour l'animation CSS
+    function animateMovementCSS(current, target, callback) {
+        if (current === target) {
+            callback();
+            return;
         }
-    });
 
-    echelles.forEach(ladder => {
-        if (ladder.start === playerPosition) {
-            playerPosition = ladder.end;
-        }
-    });
-
-    // Mettre à jour la position du joueur sur le plateau
-    players[currentPlayerIndex] = playerPosition;
-    playerElements[currentPlayerIndex].remove(); // Supprimer le pion de sa position actuelle
-    cases[playerPosition - 1].appendChild(playerElements[currentPlayerIndex]); // Placer le pion à la nouvelle position
-
-    // Vérifier si le joueur a gagné
-    if (playerPosition === 100) {
-        alert(`Le joueur ${currentPlayerIndex + 1} a gagné !`);
-        return;
+        // Déplacer le pion case par case
+        setTimeout(() => {
+            playerElements[currentPlayerIndex].remove();
+            current++;
+            cases[current - 1].appendChild(playerElements[currentPlayerIndex]);
+            animateMovementCSS(current, target, callback);
+        }, 300);
     }
+
+    animateMovementCSS(playerPosition, newPosition, () => {
+        // Vérifier les serpents et les échelles après l'animation
+        serpents.forEach(snake => {
+            if (snake.start === newPosition) {
+                newPosition = snake.end;
+            }
+        });
+
+        echelles.forEach(ladder => {
+            if (ladder.start === newPosition) {
+                newPosition = ladder.end;
+            }
+        });
+
+        players[currentPlayerIndex] = newPosition;
+
+        playerElements[currentPlayerIndex].remove();
+        cases[newPosition - 1].appendChild(playerElements[currentPlayerIndex]);
+
+        if (newPosition === 100) {
+            alert(`Le joueur ${currentPlayerIndex + 1} a gagné !`);
+            return;
+        }
+
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+    });
 }
+
+
 
 function rollDice() {
     let diceValue = Math.floor(Math.random() * 6) + 1;
-
-    // Applique l'animation et met à jour le texte
     diceResult.classList.add('dice-animation');
     diceResult.textContent = `Le joueur ${currentPlayerIndex + 1} a fait un ${diceValue} !`;
 
-    // Enlève l'animation après 500 ms pour permettre de relancer correctement
     setTimeout(() => {
         diceResult.classList.remove('dice-animation');
+        movePlayer(diceValue);  // Déplacer après l'animation
     }, 500);
-
-    movePlayer(diceValue);
-
-    // Passer au joueur suivant
-    currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
 }
 
 nouvellePartieBtn.addEventListener('click', () => {
