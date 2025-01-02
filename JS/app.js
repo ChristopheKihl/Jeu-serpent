@@ -84,17 +84,28 @@ function createplateau() {
 
 
 function movePlayer(diceValue, state) {
+    let oldPosition = playerPosition;
 
     if (playerPosition + diceValue > 100) {
         return; // Le joueur ne peut pas dépasser la case 100
     }
 
-    console.log(playerPosition);
-
-
     if (state != 0) {
         playerPosition += diceValue;
     }
+
+    console.log('ancienne valeur', oldPosition);
+    console.log('nouvelle valeur', playerPosition);
+
+    setTimeout(() => {
+        playerElement.remove();
+        cases[playerPosition - 1].appendChild(playerElement);
+        console.log('retard');
+
+    }, 200)
+    oldPosition += 1;
+    console.log(oldPosition);
+
 
 
 
@@ -112,10 +123,10 @@ function movePlayer(diceValue, state) {
     // });
 
     // Mettre à jour la position du joueur sur le plateau
-    if (playerElement) {
-        playerElement.remove(); // Supprimer le pion de sa position actuelle
-        cases[playerPosition - 1].appendChild(playerElement); // Placer le pion à la nouvelle position
-    }
+    // if (playerElement) {
+    //     playerElement.remove(); // Supprimer le pion de sa position actuelle
+    //     cases[playerPosition - 1].appendChild(playerElement); // Placer le pion à la nouvelle position
+    // }
 
     // Vérifier si le joueur a gagné
     if (playerPosition === 100) {
