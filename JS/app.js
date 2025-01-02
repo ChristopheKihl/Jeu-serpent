@@ -100,9 +100,8 @@ function movePlayer(diceValue, state) {
     setTimeout(() => {
         playerElement.remove();
         cases[playerPosition - 1].appendChild(playerElement);
-        console.log('retard');
 
-    }, 200)
+    }, 500)
     oldPosition += 1;
     console.log(oldPosition);
 
