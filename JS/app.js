@@ -70,14 +70,14 @@ function createplateau() {
     });
 
     // Créer les pions des joueurs
-      playerElements = [];
+    playerElements = [];
     players.forEach((_, index) => {
         const playerElement = document.createElement('div');
         playerElement.classList.add('player');
-        
+
         // Ajouter une couleur spécifique en fonction du joueur
         playerElement.classList.add(`player-${index + 1}`); // player-1, player-2, etc.
-        
+
         cases[0].appendChild(playerElement);
         playerElements.push(playerElement);
     });
@@ -140,7 +140,60 @@ function movePlayer(diceValue) {
 function rollDice() {
     let diceValue = Math.floor(Math.random() * 6) + 1;
     diceResult.classList.add('dice-animation');
-    diceResult.textContent = `Le joueur ${currentPlayerIndex + 1} a fait un ${diceValue} !`;
+
+    diceResult.innerHTML = '';
+
+    let dice = document.createElement('div');
+    let point = dice.cloneNode();
+    let player = dice.cloneNode();
+
+    point.classList.add('point');
+    dice.classList.add('dice');
+    player.textContent = `Joueur ${currentPlayerIndex + 1}`;
+
+    diceResult.appendChild(player);
+    diceResult.appendChild(dice);
+
+    switch (diceValue) {
+        case 1:
+            point.classList.add('point7');
+            dice.appendChild(point);
+            break;
+        case 2:
+            dice.appendChild(point).classList.add('point1');
+            dice.appendChild(point.cloneNode()).classList.add('point6');
+            break;
+        case 3:
+            dice.appendChild(point).classList.add('point1');
+            dice.appendChild(point.cloneNode()).classList.add('point7');
+            dice.appendChild(point.cloneNode()).classList.add('point6');
+            break;
+        case 4:
+            dice.appendChild(point).classList.add('point1');
+            dice.appendChild(point.cloneNode()).classList.add('point3');
+            dice.appendChild(point.cloneNode()).classList.add('point4');
+            dice.appendChild(point.cloneNode()).classList.add('point6');
+            break;
+        case 5:
+            dice.appendChild(point).classList.add('point1');
+            dice.appendChild(point.cloneNode()).classList.add('point3');
+            dice.appendChild(point.cloneNode()).classList.add('point4');
+            dice.appendChild(point.cloneNode()).classList.add('point6');
+            dice.appendChild(point.cloneNode()).classList.add('point7');
+            break;
+        case 6:
+            dice.appendChild(point).classList.add('point1');
+            dice.appendChild(point.cloneNode()).classList.add('point2');
+            dice.appendChild(point.cloneNode()).classList.add('point3');
+            dice.appendChild(point.cloneNode()).classList.add('point4');
+            dice.appendChild(point.cloneNode()).classList.add('point5');
+            dice.appendChild(point.cloneNode()).classList.add('point6');
+            break;
+
+        default:
+            break;
+    }
+
 
     setTimeout(() => {
         diceResult.classList.remove('dice-animation');
