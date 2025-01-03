@@ -52,10 +52,33 @@ body {
     border: 2px solid #fff;
 }
 
-.player-1 { background-color: red; }
-.player-2 { background-color: blue; }
-.player-3 { background-color: green; }
-.player-4 { background-color: yellow; }
+.player-1 {
+    background-image: url(../img/photoAurel.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.player-2 {
+    background-image: url(../img/photoJb.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.player-3 {
+    background-image: url(../img/Photo2.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.player-4 {
+    background-image: url(../img/Image.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
 
 .snake,
