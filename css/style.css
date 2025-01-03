@@ -126,7 +126,7 @@ button:hover {
 .dice {
     width: 100px;
     height: 100px;
-    background-color: #fff;
+    background-color: #e03939;
     border: #000 1px solid;
     margin: auto;
     position: relative;
@@ -137,7 +137,7 @@ button:hover {
     width: 20px;
     height: 20px;
     position: absolute;
-    background-color: #000;
+    background-color: #fdf3f3;
     border-radius: 25%;
 }
 
