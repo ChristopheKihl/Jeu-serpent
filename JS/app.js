@@ -74,10 +74,10 @@ function createplateau() {
     players.forEach((_, index) => {
         const playerElement = document.createElement('div');
         playerElement.classList.add('player');
-
+        
         // Ajouter une couleur spécifique en fonction du joueur
         playerElement.classList.add(`player-${index + 1}`); // player-1, player-2, etc.
-
+        
         cases[0].appendChild(playerElement);
         playerElements.push(playerElement);
     });
@@ -85,6 +85,7 @@ function createplateau() {
 
 function movePlayer(diceValue) {
     let playerPosition = players[currentPlayerIndex];
+    let newPosition = playerPosition + diceValue;
 
     if (newPosition > 100) {
         return; // Le joueur ne peut pas dépasser la case 100
@@ -114,16 +115,16 @@ function movePlayer(diceValue) {
             }
         });
 
-    echelles.forEach(ladder => {
-        if (ladder.start === playerPosition) {
-            playerPosition = ladder.end;
-        }
-    });
+        echelles.forEach(ladder => {
+            if (ladder.start === newPosition) {
+                newPosition = ladder.end;
+            }
+        });
 
-    // Mettre à jour la position du joueur sur le plateau
-    players[currentPlayerIndex] = playerPosition;
-    playerElements[currentPlayerIndex].remove(); // Supprimer le pion de sa position actuelle
-    cases[playerPosition - 1].appendChild(playerElements[currentPlayerIndex]); // Placer le pion à la nouvelle position
+        players[currentPlayerIndex] = newPosition;
+
+        playerElements[currentPlayerIndex].remove();
+        cases[newPosition - 1].appendChild(playerElements[currentPlayerIndex]);
 
         if (newPosition === 100) {
             alert(`Le joueur ${currentPlayerIndex + 1} a gagné !`);
